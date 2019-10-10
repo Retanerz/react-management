@@ -82,7 +82,6 @@ app.post('/api/customers/:id', upload.single('image'), (req, res) => {
   let birthday = req.body.birthday;
   let gender = req.body.gender;
   let job = req.body.job;
-  console.log(req.body.fileChanged);
   if (req.body.fileChanged === 'true') {
     image = '/image/' + req.file.filename;
   } else {
