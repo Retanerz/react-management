@@ -33,6 +33,19 @@ app.get('/api/customers', (req, res) => {
   );
 });
 
+app.get('/api/customer/:id', (req, res) => {
+  let sql = 'SELECT * FROM CUSTOMER WHERE id = ?';
+  let params = [req.params.id];
+  connection.query(sql, params,
+    (err, rows, fields) => {
+      res.send(rows);
+    }
+  );
+
+});
+
+
+
 app.use('/image', express.static('./upload'));
 
 app.post('/api/customers', upload.single('image'), (req, res) => {
@@ -60,5 +73,28 @@ app.delete('/api/customers/:id', (req, res) => {
     }
   );
 });
+
+
+app.post('/api/customers/:id', upload.single('image'), (req, res) => {
+  let sql = 'UPDATE CUSTOMER SET image = ?, name = ?, birthday = ?, gender = ?, job = ? WHERE id = ?';
+  let image = null;
+  let name = req.body.name;
+  let birthday = req.body.birthday;
+  let gender = req.body.gender;
+  let job = req.body.job;
+  console.log(req.body.fileChanged);
+  if (req.body.fileChanged === 'true') {
+    image = '/image/' + req.file.filename;
+  } else {
+    image = req.body.image;
+  }
+  let params = [image, name, birthday, gender, job, req.params.id];
+  connection.query(sql, params,
+    (err, rows, fields) => {
+      res.send(rows);
+    }
+  );
+});
+
 
 app.listen(port, () => console.log(`listening on port ${5000}`));

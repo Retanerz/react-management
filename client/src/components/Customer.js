@@ -3,6 +3,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CustomerDelete from './CustomerDelete';
+import CustomerUpdate from './CustomerUpdate';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = (theme) => ({
@@ -24,6 +25,10 @@ class Customer extends React.Component {
         <TableCell>{this.props.job}</TableCell>
         <TableCell>
           <CustomerDelete
+            stateRefresh={this.props.stateRefresh}
+            id={this.props.id}
+          />
+          <CustomerUpdate
             stateRefresh={this.props.stateRefresh}
             id={this.props.id}
           />

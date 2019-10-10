@@ -161,7 +161,7 @@ class App extends Component {
       ));
     }
     const { classes } = this.props;
-    const cellList = ["Index", "Profile", "Name", "Birthday", "Gender", "Job", "Setting"];
+    const cellList = ["Index", "Profile", "Name", "Birthday", "Gender", "Job", "Settings"];
     return (
       <div className={classes.root}>
         <AppBar position="static">

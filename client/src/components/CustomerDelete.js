@@ -5,6 +5,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  buttonWidth: {
+    marginBottom: '5px',
+    width: '80px',
+  }
+});
 
 class CustomerDelete extends React.Component {
   constructor(props) {
@@ -35,9 +43,11 @@ class CustomerDelete extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
         <Button 
+          className={classes.buttonWidth}
           variant="contained"
           color="secondary"
           onClick={this.handleClickOpen}
@@ -77,4 +87,4 @@ class CustomerDelete extends React.Component {
   }
 }
 
-export default CustomerDelete;
+export default withStyles(styles)(CustomerDelete);
