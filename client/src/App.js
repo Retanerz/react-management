@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import './Animation.css';
+
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -9,16 +10,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { withStyles } from '@material-ui/core/styles';
-
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { withStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles';
 
 import Customer from './components/Customer';
 import CustomerAdd from './components/CustomerAdd';
@@ -99,30 +99,31 @@ class App extends Component {
     this.state = {
       customers: '',
       completed: 0,
-      searchKeyword: '',
+      searchKeyword: ''
     }
-  }
-
-  stateRefresh = () => {
-    this.setState({
-      customers: '',
-      completed: 0,
-      searchKeyword: '',
-    });
-    this.callApi()
-      .then(res => this.setState({customers: res}))
-      .catch(err => console.log(err));
   }
 
   componentDidMount() {
     this.timer = setInterval(this.progress, 20);
     this.callApi()
-      .then(res => this.setState({customers: res}))
+      .then(res => this.setState({ customers: res }))
       .catch(err => console.log(err));
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
+  }
+
+
+  stateRefresh = () => {
+    this.setState({
+      customers: '',
+      completed: 0,
+      searchKeyword: ''
+    });
+    this.callApi()
+      .then(res => this.setState({ customers: res }))
+      .catch(err => console.log(err));
   }
 
   callApi = async () => {
@@ -143,9 +144,19 @@ class App extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+    const cellList = [
+      "Index",
+      "Profile",
+      "Name",
+      "Birthday",
+      "Gender",
+      "Job",
+      "Settings"
+    ];
     const filteredComponents = (data) => {
       data = data.filter((cbf) => {
-        return cbf.name.toLowerCase().indexOf(this.state.searchKeyword) > -1; // 대소문자 구분 X
+        return cbf.name.toLowerCase().indexOf(this.state.searchKeyword) > -1;
       });
       return data.map((cbf) => (
         <Customer
@@ -160,8 +171,6 @@ class App extends Component {
         />
       ));
     }
-    const { classes } = this.props;
-    const cellList = ["Index", "Profile", "Name", "Birthday", "Gender", "Job", "Settings"];
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -202,17 +211,17 @@ class App extends Component {
             <TableHead>
               <TableRow>
                 {cellList.map(cbf => {
-                  return <TableCell className={classes.tableHead}>
-                      {cbf}
-                    </TableCell>
+                  return (
+                    <TableCell className={classes.tableHead}>{cbf}</TableCell>
+                  );
                 })}
               </TableRow>
             </TableHead>
             <TableBody>
-              {
-              this.state.customers
-              ? filteredComponents(this.state.customers) 
-              : <TableRow>
+              {this.state.customers ? (
+                filteredComponents(this.state.customers) 
+              ) : ( 
+                <TableRow>
                   <TableCell colSpan="6" align="center">
                     <CircularProgress
                       className={classes.progress}
@@ -220,8 +229,8 @@ class App extends Component {
                       value={this.state.completed}
                     />
                   </TableCell>
-              </TableRow>
-              }
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </Paper>

@@ -1,28 +1,28 @@
 import React from 'react';
 import { post } from 'axios';
+import "react-datepicker/dist/react-datepicker.css";
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Warning from './Warning';
+import { withStyles } from '@material-ui/core/styles';
 
-import "react-datepicker/dist/react-datepicker.css";
+import Warning from './Warning';
 
 const styles = theme => ({
   hidden: {
-    display: 'none'
+    display: 'none',
   },
   graycolor: {
-    color: 'gray'
+    color: 'gray',
   },
   textField: {
     display: 'flex',
@@ -47,7 +47,7 @@ class CustomerAdd extends React.Component {
       fileName: '',
       warningMessage: '',
       open: false,
-      warningVisibility: false,
+      warningVisibility: false
     }
   }
 
@@ -71,25 +71,25 @@ class CustomerAdd extends React.Component {
       this.showWarning();
       this.setState({
         warningMessage: 'Please select a file',
-        open: true,
+        open: true
       });
     } else if (this.state.name === '') {
       this.showWarning();
       this.setState({
         warningMessage: 'Please enter a name',
-        open: true,
+        open: true
       });
     } else if (this.state.birthday === '') {
       this.showWarning();
       this.setState({
         warningMessage: 'Please select a date',
-        open: true,
+        open: true
       });
     } else if (this.state.gender === '') {
       this.showWarning();
       this.setState({
         warningMessage: 'Please select a gender',
-        open: true,
+        open: true
       });
     } else {
       this.addCustomer()
@@ -104,7 +104,7 @@ class CustomerAdd extends React.Component {
         gender: '',
         job: '',
         fileName: '',
-        open: false,
+        open: false
       });
     }
   }
@@ -146,7 +146,7 @@ class CustomerAdd extends React.Component {
 
   handleClickOpen = () => {
     this.setState({
-      open: true,
+      open: true
     });
   }
 
@@ -158,8 +158,8 @@ class CustomerAdd extends React.Component {
       gender: '',
       job: '',
       fileName: '',
-      open: false,
-    })
+      open: false
+    });
   }
 
   render() {
@@ -194,7 +194,8 @@ class CustomerAdd extends React.Component {
                 name="file"
                 > {this.state.fileName === "" ? "Select Image" : this.state.fileName}
               </Button>
-            </label><br />
+            </label>
+            <br />
             <TextField
               className={classes.textField}
               label="Name"
@@ -202,7 +203,8 @@ class CustomerAdd extends React.Component {
               name="name"
               value={this.state.name}
               onChange={this.handleValueChange}
-            /><br />
+            />
+            <br />
             <TextField
               className={classes.textField}
               label="Birthday"
@@ -214,7 +216,8 @@ class CustomerAdd extends React.Component {
               InputLabelProps={{
                 shrink: true,
               }}
-            /><br />
+            />
+            <br />
             <FormControl component="fieldset" className={classes.genderField}>
               <FormLabel component="legend">Gender</FormLabel>
                 <RadioGroup
@@ -246,7 +249,8 @@ class CustomerAdd extends React.Component {
               name="job"
               value={this.state.job}
               onChange={this.handleValueChange}
-            /><br />
+            />
+            <br />
           </DialogContent>
           <DialogActions>
             <Button

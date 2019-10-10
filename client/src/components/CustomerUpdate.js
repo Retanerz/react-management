@@ -1,27 +1,28 @@
 import React from 'react';
 import { post } from 'axios';
+import "react-datepicker/dist/react-datepicker.css";
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Warning from './Warning';
+import { withStyles } from '@material-ui/core/styles';
 
-import "react-datepicker/dist/react-datepicker.css";
+import Warning from './Warning';
 
 const styles = theme => ({
   hidden: {
-    display: 'none'
+    display: 'none',
   },
   graycolor: {
-    color: 'gray'
+    color: 'gray',
   },
   textField: {
     display: 'flex',
@@ -51,66 +52,7 @@ class CustomerUpdate extends React.Component {
       customer: '',
       fileChanged: false,
       open: false,
-      warningVisibility: false,
-    }
-  }
-
-  showWarning = () => {
-    this.setState({
-      warningVisibility: true
-    });
-    // after 1 sec
-    setTimeout(
-      () => {
-        this.setState({
-           warningVisibility: false
-          });
-       }, 800
-    );
-  }
-
-  handleFormSubmit = (e) => {
-    e.preventDefault()
-    if (this.state.file === null) {
-      this.showWarning();
-      this.setState({
-        warningMessage: 'Please select a file',
-        open: true,
-      });
-    } else if (this.state.name === '') {
-      this.showWarning();
-      this.setState({
-        warningMessage: 'Please enter a name',
-        open: true,
-      });
-    } else if (this.state.birthday === '') {
-      this.showWarning();
-      this.setState({
-        warningMessage: 'Please select a date',
-        open: true,
-      });
-    } else if (this.state.gender === '') {
-      this.showWarning();
-      this.setState({
-        warningMessage: 'Please select a gender',
-        open: true,
-      });
-    } else {
-      this.updateCustomer(this.props.id)
-      .then((res) => {
-        console.log(res.data);
-        this.props.stateRefresh();
-      });
-      this.setState({
-        file: null,
-        fileName: '',
-        name: '',
-        birthday: '',
-        gender: '',
-        job: '',
-        fileChanged: false,
-        open: false,
-      });
+      warningVisibility: false
     }
   }
 
@@ -118,7 +60,7 @@ class CustomerUpdate extends React.Component {
     this.setState({
       file: e.target.files[0],
       fileName: e.target.value,
-      fileChanged: true,
+      fileChanged: true
     });
   }
 
@@ -134,21 +76,18 @@ class CustomerUpdate extends React.Component {
     this.setState(nextState);
   }
 
-  updateCustomer = (id) => {
-    const url = '/api/customers/' + id;
-    const formData = new FormData();
-    formData.append('image', this.state.file);
-    formData.append('name', this.state.name);
-    formData.append('birthday', this.state.birthday);
-    formData.append('gender', this.state.gender);
-    formData.append('job', this.state.job);
-    formData.append('fileChanged', this.state.fileChanged);
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    }
-    return post(url, formData, config);
+  showWarning = () => {
+    this.setState({
+      warningVisibility: true
+    });
+    // after 1 sec
+    setTimeout(
+      () => {
+        this.setState({
+           warningVisibility: false
+          });
+       }, 800
+    );
   }
 
   handleClickOpen = (id) => {
@@ -179,6 +118,68 @@ class CustomerUpdate extends React.Component {
     })
   }
 
+  handleFormSubmit = (e) => {
+    e.preventDefault()
+    if (this.state.file === null) {
+      this.showWarning();
+      this.setState({
+        warningMessage: 'Please select a file',
+        open: true
+      });
+    } else if (this.state.name === '') {
+      this.showWarning();
+      this.setState({
+        warningMessage: 'Please enter a name',
+        open: true
+      });
+    } else if (this.state.birthday === '') {
+      this.showWarning();
+      this.setState({
+        warningMessage: 'Please select a date',
+        open: true
+      });
+    } else if (this.state.gender === '') {
+      this.showWarning();
+      this.setState({
+        warningMessage: 'Please select a gender',
+        open: true
+      });
+    } else {
+      this.updateCustomer(this.props.id)
+      .then((res) => {
+        console.log(res.data);
+        this.props.stateRefresh();
+      });
+      this.setState({
+        file: null,
+        fileName: '',
+        name: '',
+        birthday: '',
+        gender: '',
+        job: '',
+        fileChanged: false,
+        open: false
+      });
+    }
+  }
+
+  updateCustomer = (id) => {
+    const url = '/api/customers/' + id;
+    const formData = new FormData();
+    formData.append('image', this.state.file);
+    formData.append('name', this.state.name);
+    formData.append('birthday', this.state.birthday);
+    formData.append('gender', this.state.gender);
+    formData.append('job', this.state.job);
+    formData.append('fileChanged', this.state.fileChanged);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    return post(url, formData, config);
+  }
+
   callApi = async (url) => {
     const response = await fetch(url);
     const body = await response.json();
@@ -200,7 +201,7 @@ class CustomerUpdate extends React.Component {
         </Button>
         <Dialog open={this.state.open} onClose={this.handleClose}>
           <DialogTitle>Edit Customer</DialogTitle>
-          <DialogContent  style={{width: "250px", height: "355px"}}>
+          <DialogContent  style={{ width: "250px", height: "355px" }}>
           <Warning visible={this.state.warningVisibility} message={this.state.warningMessage}/>
             <input className={classes.hidden}
               accept="image/*"
