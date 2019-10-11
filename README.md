@@ -20,7 +20,7 @@
 * fs
 * body-parser
 * mysql
-* material-ui
+* material-ui*
 * axios
 
 # Logic
@@ -28,13 +28,14 @@
 * Customer
 * CustomerAdd
 * CustomerDelete
-* CustomerUpdate
-* Warning
+* CustomerUpdate*
+* Warning*
 
 **Client (React)**
 
 **Server (Node.js)**
 
+[F/C Algorithm](https://github.com/Retanerz/react-management/blob/master/LogicAlgorithm.png)
 
 # Site
 * [\ Google /](https://google.com)
