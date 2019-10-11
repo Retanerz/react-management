@@ -40,4 +40,5 @@
 * [Stackoverflow](https://stackoverflow.com)
 * [Material UI](https://material-ui.com)
 * [AniCollection](http://anicollection.github.io)
+* [ndb796 tistory](https://ndb796.tistory.com/)
 * [VELOPERT.LOG](https://velopert.com)
