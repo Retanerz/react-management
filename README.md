@@ -7,8 +7,10 @@
 ---
 
 # Technology
-**Web Framework**
+**Front-end**
 * React
+
+**Back-end**
 * Node.js
 
 **Cloud Platform**
