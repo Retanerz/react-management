@@ -7,15 +7,15 @@
 ---
 
 # Technology
+**Cloud Platform**
+* Amazon Relational Database Service (RDS)
+  * MySQL Community
+
 **Front-end**
 * React
 
 **Back-end**
 * Node.js
-
-**Cloud Platform**
-* Amazon Relational Database Service (RDS)
-  * MySQL Community
 
 **modules**
 * express
