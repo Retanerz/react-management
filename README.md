@@ -31,8 +31,9 @@
 * CustomerUpdate
 * Warning
 
-**CSS**
-* Warning Animation
+**Client (React)**
+
+**Server (Node.js)**
 
 
 # Site
