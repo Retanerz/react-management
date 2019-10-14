@@ -114,7 +114,6 @@ class App extends Component {
     clearInterval(this.timer);
   }
 
-
   stateRefresh = () => {
     this.setState({
       customers: '',
@@ -156,7 +155,7 @@ class App extends Component {
     ];
     const filteredComponents = (data) => {
       data = data.filter((cbf) => {
-        return cbf.name.toLowerCase().indexOf(this.state.searchKeyword) > -1;
+        return cbf.name.indexOf(this.state.searchKeyword) > -1;
       });
       return data.map((cbf) => (
         <Customer
