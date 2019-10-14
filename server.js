@@ -25,8 +25,8 @@ AWS.config.update({
 const upload = multer({
   storage: multerS3({
     s3: new AWS.S3(),
-    bucket: 'react-management-system',
-    key(req, file, cbf) {
+    bucket: 'react-management-system', // bucket-name
+    key(req, file, cbf) { // The name of the file
       cbf(null, `original/${+new Date()}${path.basename(file.originalname)}`);
     },
   }),
@@ -42,6 +42,8 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
+app.use('/image', express.static('./upload'));
+
 app.get('/api/customers', (req, res) => {
   connection.query(
     'SELECT * FROM CUSTOMER WHERE isDeleted = 0',
@@ -52,8 +54,8 @@ app.get('/api/customers', (req, res) => {
 });
 
 app.get('/api/customer/:id', (req, res) => {
-  let sql = 'SELECT * FROM CUSTOMER WHERE id = ?';
-  let params = [req.params.id];
+  const sql = 'SELECT * FROM CUSTOMER WHERE id = ?';
+  const params = [req.params.id];
   connection.query(sql, params,
     (err, rows, fields) => {
       res.send(rows);
@@ -62,16 +64,15 @@ app.get('/api/customer/:id', (req, res) => {
 
 });
 
-app.use('/image', express.static('./upload'));
-
 app.post('/api/customers', upload.single('image'), (req, res) => {
-  let sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?, now(), 0)';
-  let image = req.file.location;
-  let name = req.body.name;
-  let birthday = req.body.birthday;
-  let gender = req.body.gender;
-  let job = req.body.job;
-  let params = [image, name, birthday, gender, job];
+  const sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?, now(), 0)';
+  const originalImage = req.file.location;
+  const image = originalImage.replace(/\/original\//, '/thumb/');
+  const name = req.body.name;
+  const birthday = req.body.birthday;
+  const gender = req.body.gender;
+  const job = req.body.job;
+  const params = [image, name, birthday, gender, job];
 
   connection.query(sql, params,
     (err, rows, fields) => {
@@ -81,8 +82,8 @@ app.post('/api/customers', upload.single('image'), (req, res) => {
 });
 
 app.delete('/api/customers/:id', (req, res) => {
-  let sql = 'UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?';
-  let params = [req.params.id];
+  const sql = 'UPDATE CUSTOMER SET isDeleted = 1 WHERE id = ?';
+  const params = [req.params.id];
   connection.query(sql, params,
     (err, rows, fields) => {
       res.send(rows);
@@ -91,18 +92,19 @@ app.delete('/api/customers/:id', (req, res) => {
 });
 
 app.post('/api/customers/:id', upload.single('image'), (req, res) => {
-  let sql = 'UPDATE CUSTOMER SET image = ?, name = ?, birthday = ?, gender = ?, job = ? WHERE id = ?';
+  const sql = 'UPDATE CUSTOMER SET image = ?, name = ?, birthday = ?, gender = ?, job = ? WHERE id = ?';
+  const name = req.body.name;
+  const birthday = req.body.birthday;
+  const gender = req.body.gender;
+  const job = req.body.job;
+  const originalImage = req.file.location;
   let image = null;
-  let name = req.body.name;
-  let birthday = req.body.birthday;
-  let gender = req.body.gender;
-  let job = req.body.job;
   if (req.body.fileChanged === 'true') {
-    image = req.file.location;
+    image = originalImage.replace(/\/original\//, '/thumb/');
   } else {
     image = req.body.image;
   }
-  let params = [image, name, birthday, gender, job, req.params.id];
+  const params = [image, name, birthday, gender, job, req.params.id];
 
   connection.query(sql, params,
     (err, rows, fields) => {
@@ -110,6 +112,5 @@ app.post('/api/customers/:id', upload.single('image'), (req, res) => {
     }
   );
 });
-
 
 app.listen(port, () => console.log(`listening on port ${5000}`));
