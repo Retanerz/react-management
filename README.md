@@ -7,20 +7,22 @@
 ---
 
 # Technology
-**Web Framework**
-* React
-* Node.js
-
 **Cloud Platform**
 * Amazon Relational Database Service (RDS)
   * MySQL Community
+
+**Front-end**
+* React
+
+**Back-end**
+* Node.js
 
 **modules**
 * express
 * fs
 * body-parser
 * mysql
-* material-ui
+* material-ui*
 * axios
 
 # Logic
@@ -28,12 +30,14 @@
 * Customer
 * CustomerAdd
 * CustomerDelete
-* CustomerUpdate
-* Warning
+* CustomerUpdate*
+* Warning*
 
-**CSS**
-* Warning Animation
+**Client (React)**
 
+**Server (Node.js)**
+
+[F/C Algorithm](https://github.com/Retanerz/react-management/blob/master/LogicAlgorithm.png)
 
 # Site
 * [\ Google /](https://google.com)
