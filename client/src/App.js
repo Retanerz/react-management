@@ -104,6 +104,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Management System';
     this.timer = setInterval(this.progress, 20);
     this.callApi()
       .then(res => this.setState({ customers: res }))
