@@ -46,3 +46,4 @@
 * [AniCollection](http://anicollection.github.io)
 * [ndb796 tistory](https://ndb796.tistory.com/)
 * [VELOPERT.LOG](https://velopert.com)
+* [velog@velopert](https://velog.io/@velopert)
